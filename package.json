@@ -3,15 +3,17 @@
   "version": "1.0.0",
   "description": "Shopping website ",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node backend/server",
-    "server":"nodemon backend/server",
-    "client":"npm start --prefix frontend",
-    "dev":"concurrently \"npm run server\" \"npm run client\""
+    "server": "nodemon backend/server",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Aditya Lokakshi",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "express": "^4.18.2"
   },
   "devDependencies": {
@@ -19,4 +21,3 @@
     "nodemon": "^2.0.22"
   }
 }
-
