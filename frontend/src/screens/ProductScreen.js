@@ -1,16 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link, useParams } from 'react-router-dom';
+
 import { Row, Col, Card, Image, Button, ListGroup } from 'react-bootstrap';
 import Rating from '../Components/Rating';
-import products from '../products.js';
-const ProductScreen = () => {
 
+const ProductScreen = () => {
+  const [product, setProduct] = useState([])
   //Since we have Routed path for Product Page with path={'/product/:id'} 
   //so to get access to the Product id we used useParams and 
-  //then matched that with array of product.js to fetch details of the respective Product, Line 12 & 13 is the logic
+  //then matched that with array of product.js to fetch details of the respective Product, Line 13 & 14 is the logic
   const { id } = useParams()
-  const product = products.find(p => p._id === id)
+  // const product = products.find(p => p._id === id)
+ 
+  useEffect(()=>{
+    async function fetchProduct(){
+         const {data}= await axios.get('/api/products/'+id)
+         setProduct(data)
+     }
+     fetchProduct()
+ },[]);
 
   return (
     <>
@@ -65,7 +75,7 @@ const ProductScreen = () => {
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row className='mx-auto'>
-                  <Button className='btn-block' type='button' disabled={product.countInStock === 0 }>Add to Cart</Button>
+                  <Button className='btn-block' type='button' disabled={product.countInStock === 0}>Add to Cart</Button>
                 </Row>
               </ListGroup.Item>
             </ListGroup>
